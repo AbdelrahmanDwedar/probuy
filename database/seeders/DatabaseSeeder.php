@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
+use App\Models\Tag;
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $tags = Tag::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(50)->create()->each(fn ($user) => (
+            Product::factory(rand(1, 6))->create([
+                'user_id' => $user->id,
+            ])->each(fn($product) => (
+                $product->tags()->attach($tags->random(2))
+            ))
+        )
+        );
     }
 }
