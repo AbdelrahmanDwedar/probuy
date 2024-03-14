@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 
-class Tag extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function products(): Relations\BelongsToMany
+    public function product(): Relations\HasMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

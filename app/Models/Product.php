@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
 
 class Product extends Model
 {
@@ -11,18 +12,23 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function clicks()
+    public function categories(): Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function clicks(): Relations\HasMany
     {
         return $this->hasMany(Click::class);
     }
 
-    public function user()
+    public function tags(): Relations\HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Tag::class);
     }
 
-    public function tags()
+    public function orderItems(): Relations\BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(OrderItem::class);
     }
 }
