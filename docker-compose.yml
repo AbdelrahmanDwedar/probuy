@@ -5,6 +5,10 @@ services:
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
+        develop:
+            watch:
+              - action: sync+restart
+                path: .
         image: sail-8.2/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
