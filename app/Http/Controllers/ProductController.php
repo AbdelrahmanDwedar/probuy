@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function addToCart(Product $product, Request $request)
     {
         $product->clicks()->create([
-            'ip' => $request->ip()
+            'ip' => $request->ip(),
         ]);
     }
 }

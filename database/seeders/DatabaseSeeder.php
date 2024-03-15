@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory(50)->create()->each(fn ($user) => (
             Product::factory(rand(1, 6))->create([
                 'user_id' => $user->id,
-            ])->each(fn($product) => (
+            ])->each(fn ($product) => (
                 $product->tags()->attach($tags->random(2))
             ))
         )

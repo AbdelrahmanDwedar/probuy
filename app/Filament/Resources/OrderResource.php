@@ -37,8 +37,8 @@ class OrderResource extends Resource
                     ->maxLength(255)
                     ->default('EGP'),
                 Forms\Components\TextInput::make('shipping_fee')
-                ->numeric()
-                ->prefix('E£'),
+                    ->numeric()
+                    ->prefix('E£'),
                 Forms\Components\TextInput::make('shipping_method')
                     ->maxLength(255),
                 Forms\Components\Textarea::make('notes')
