@@ -7,7 +7,7 @@ services:
                 WWWGROUP: '${WWWGROUP}'
         develop:
             watch:
-              - action: sync+restart
+              - action: rebuild
                 path: .
         image: sail-8.2/app
         extra_hosts:
