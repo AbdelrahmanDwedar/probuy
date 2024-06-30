@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +15,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->string('image');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->decimal('price', 10, 2);
-            $table->string('image');
-            $table->boolean('in_stock')->default(true);
             $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->boolean('in_stock')->default(true);
+            $table->foreignIdFor(Category::class)->constrained('categories')->cascadeOnDelete();
         });
     }
 

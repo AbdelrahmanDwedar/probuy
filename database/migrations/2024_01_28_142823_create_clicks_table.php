@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('clicks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class);
             $table->string('ip')->nullable();
+            $table->foreignIdFor(Product::class);
             $table->timestamps();
         });
     }
