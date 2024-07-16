@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::where('in_stock', true)
+        $products = \App\Models\Product::query()->where('in_stock', true)
             ->with('tags')
             ->latest()
             ->get();
@@ -25,17 +25,17 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        return Product::create($request->all);
+        return \App\Models\Product::query()->create($request->all);
     }
 
     public function show($id)
     {
-        return Product::find($id);
+        return \App\Models\Product::query()->find($id);
     }
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $product = \App\Models\Product::query()->findOrFail($id);
         $product->update($request->all());
 
         return $product;
@@ -43,12 +43,12 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        Product::find($id)->delete();
+        \App\Models\Product::query()->find($id)->delete();
 
         return 204;
     }
 
-    public function addToCart(Product $product, Request $request)
+    public function addToCart(Product $product, Request $request): void
     {
         $product->clicks()->create([
             'ip' => $request->ip(),

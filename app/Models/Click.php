@@ -12,6 +12,9 @@ class Click extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Product, \App\Models\Click>
+     */
     public function Products(): BelongsTo
     {
         return $this->belongsTo(Product::class);

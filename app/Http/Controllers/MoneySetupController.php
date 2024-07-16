@@ -39,7 +39,7 @@ class MoneySetupController extends Controller
                     ],
                 ]);
                 if (! isset($token['id'])) {
-                    return redirect()->route('addmoney.paymentstripe');
+                    return to_route('addmoney.paymentstripe');
                 }
                 $charge = $stripe->charges()->create([
                     'card' => $token['id'],
@@ -53,25 +53,23 @@ class MoneySetupController extends Controller
                     print_r($charge);
                     exit();
 
-                    return redirect()->route('addmoney.paymentstripe');
+                    return to_route('addmoney.paymentstripe');
                 } else {
                     \Session::put('error', 'Money not add in wallet!!');
 
-                    return redirect()->route('addmoney.paymentstripe');
+                    return to_route('addmoney.paymentstripe');
                 }
-            } catch (Exception $e) {
+            } catch (Exception|Cartalyst\Stripe\Exception\MissingParameterException $e) {
                 Session::put('error', $e->getMessage());
 
-                return redirect()->route('addmoney.paymentstripe');
+                return to_route('addmoney.paymentstripe');
             } catch (Cartalyst\Stripe\Exception\CardErrorException $e) {
                 Session::put('error', $e->getMessage());
 
-                return redirect()->route('addmoney.paywithstripe');
-            } catch (Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                Session::put('error', $e->getMessage());
-
-                return redirect()->route('addmoney.paymentstripe');
+                return to_route('addmoney.paywithstripe');
             }
         }
+
+        return null;
     }
 }

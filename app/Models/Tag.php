@@ -12,6 +12,9 @@ class Tag extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\Product>
+     */
     public function products(): Relations\BelongsToMany
     {
         return $this->belongsToMany(Product::class);
