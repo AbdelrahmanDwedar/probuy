@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: run-pint
+        name: Laravel Pint
+        entry: vendor/bin/pint
+        language: system
+        types: [python, php]
+        pass_filenames: false  # Run on the entire codebase, not just staged files
+        always_run: true
