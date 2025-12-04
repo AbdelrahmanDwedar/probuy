@@ -32,8 +32,8 @@ class TenancyServiceProvider extends ServiceProvider
                     // Your own jobs to prepare the tenant.
                     // Provision API keys, create S3 buckets, anything you want!
 
-                ])->send(fn(Events\TenantCreated $event) => $event->tenant)
-                ->shouldBeQueued(false), // `false` by default, but you probably want to make this `true` for production.
+                ])->send(fn (Events\TenantCreated $event) => $event->tenant)
+                    ->shouldBeQueued(false), // `false` by default, but you probably want to make this `true` for production.
             ],
             Events\SavingTenant::class => [],
             Events\TenantSaved::class => [],
@@ -43,7 +43,7 @@ class TenancyServiceProvider extends ServiceProvider
             Events\TenantDeleted::class => [
                 JobPipeline::make([
                     Jobs\DeleteDatabase::class,
-                ])->send(fn(Events\TenantDeleted $event) => $event->tenant)->shouldBeQueued(false), // `false` by default, but you probably want to make this `true` for production.
+                ])->send(fn (Events\TenantDeleted $event) => $event->tenant)->shouldBeQueued(false), // `false` by default, but you probably want to make this `true` for production.
             ],
 
             // Domain events
